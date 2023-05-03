@@ -10,10 +10,10 @@ module GetResponseApi
     end
 
     def request(method, path)
-      response = http_request(method, path).parsed_response
+      response = http_request(method, path)
 
-      if error?(response) && response['message']
-        return response['message']
+      if error?(response.parsed_response) && response.parsed_response['message']
+        return response.parsed_response['message']
       end
       response
     end
