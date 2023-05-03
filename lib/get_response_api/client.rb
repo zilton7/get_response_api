@@ -15,5 +15,9 @@ module GetResponseApi
     def custom_fields
       @connection.request(:get, '/custom-fields')
     end
+
+    def contacts
+      @connection.request(:get, '/contacts')
+    end
   end
 end
