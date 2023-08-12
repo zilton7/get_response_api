@@ -9,23 +9,27 @@ module GetResponseApi
       @api_key = api_key
     end
 
-    def request(method, path)
-      response = http_request(method, path)
+    def request(method, path, payload = nil)
+      response = http_request(method, path, payload)
 
-      if error?(response.parsed_response) && response.parsed_response['message']
+      if error?(response&.parsed_response) && response.parsed_response['message']
         return response.parsed_response['message']
       end
+
       response
     end
 
     private
 
-    def http_request(request, path, headers: {})
+    def http_request(request, path, payload, headers: {})
       headers.merge!(auth)
+      body = {}.merge!(payload) if payload
+
       HTTParty.public_send(
         request,
         "#{API_ENDPOINT}#{path}",
         headers: headers,
+        body: body.to_json,
         timeout: TIMEOUT
       )
     end

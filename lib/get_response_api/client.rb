@@ -16,8 +16,12 @@ module GetResponseApi
       @connection.request(:get, '/custom-fields')
     end
 
-    def contacts(page=1, per_page=100)
+    def contacts(page = 1, per_page = 100)
       @connection.request(:get, "/contacts?page=#{page}&perPage=#{per_page}")
+    end
+
+    def search_contacts(per_page = 100, payload)
+      @connection.request(:post, "/search-contacts/contacts?perPage=#{per_page}", payload)
     end
   end
 end
