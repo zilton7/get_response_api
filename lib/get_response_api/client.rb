@@ -20,8 +20,13 @@ module GetResponseApi
       @connection.request(:get, "/contacts?page=#{page}&perPage=#{per_page}")
     end
 
-    def search_contacts(per_page = 100, payload)
-      @connection.request(:post, "/search-contacts/contacts?perPage=#{per_page}", payload)
+    def search_contacts(page = 1, per_page = 100, payload)
+      @connection.request(:post, "/search-contacts/contacts?page=#{page}&perPage=#{per_page}",
+                          payload)
+    end
+
+    def delete_contact(contact_id)
+      @connection.request(:delete, "/contacts/#{contact_id}")
     end
   end
 end
